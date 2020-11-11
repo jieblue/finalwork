@@ -1,6 +1,5 @@
-package com.example.demo;
+package com.example.comtroller;
 
-import com.alibaba.fastjson.JSONObject;
 import com.example.entity.User;
 import com.example.entity.UserExample;
 import com.example.mapper.UserMapper;
