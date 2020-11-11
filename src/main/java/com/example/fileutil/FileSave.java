@@ -22,8 +22,8 @@ public class FileSave {
         try {
             // 先尝试压缩并保存图片
             Thumbnails.of(file.getInputStream())
-                    .size(100,75)
-                    .outputQuality(0.15f)
+                    .size(600,400)
+                    .outputQuality(1f)
                     .outputFormat("jpg")
                     .toFile(savepath);
         } catch (IOException e) {

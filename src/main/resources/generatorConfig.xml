@@ -19,7 +19,7 @@
         <!-- 数据库连接 -->
         <jdbcConnection
                 driverClass="com.mysql.cj.jdbc.Driver"
-                connectionURL="jdbc:mysql://150.158.153.134:3306/fzumqldb?nullCatalogMeansCurrent=true&amp;serverTimezone=GMT&amp;useUnicode=true&amp;characterEncoding=utf-8&amp;allowPublicKeyRetrieval=true&amp;useSSL=false"
+                connectionURL="jdbc:mysql://150.158.153.134:3306/fzumqldb?nullCatalogMeansCurrent=true&amp;serverTimezone=GMT%2b8&amp;useUnicode=true&amp;characterEncoding=utf-8&amp;allowPublicKeyRetrieval=true&amp;useSSL=false"
                 userId="jieblue"
                 password="2775856803"/>
 
@@ -51,6 +51,8 @@
         <table tableName="restaurant" schema=""/>
         <table tableName="comment" schema=""/>
         <table tableName="collection" schema=""/>
+        <table tableName="vcollection" schema=""/>
+        <table tableName="vcomment" schema=""/>
     </context>
 </generatorConfiguration>
 

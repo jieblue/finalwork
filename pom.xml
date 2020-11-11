@@ -64,15 +64,7 @@
             </exclusions>
         </dependency>
         <!-- 热部署 -->
-        <dependency>
 
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-devtools</artifactId>
-            <version> 2.3.5.RELEASE</version>
-
-            <!-- 启用 -->
-            <optional>true</optional>
-        </dependency>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>

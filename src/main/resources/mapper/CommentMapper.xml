@@ -11,7 +11,7 @@
     <result column="Pic" jdbcType="VARCHAR" property="pic" />
     <result column="UID" jdbcType="VARCHAR" property="uid" />
     <result column="Score" jdbcType="REAL" property="score" />
-    <result column="Ctime" jdbcType="TIMESTAMP" property="ctime" />
+    <result column="Ctime" jdbcType="DATE" property="ctime" />
     <result column="DishID" jdbcType="INTEGER" property="dishid" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -142,7 +142,7 @@
       UID, Score, Ctime, DishID
       )
     values (#{id,jdbcType=INTEGER}, #{text,jdbcType=VARCHAR}, #{pic,jdbcType=VARCHAR}, 
-      #{uid,jdbcType=VARCHAR}, #{score,jdbcType=REAL}, #{ctime,jdbcType=TIMESTAMP}, #{dishid,jdbcType=INTEGER}
+      #{uid,jdbcType=VARCHAR}, #{score,jdbcType=REAL}, #{ctime,jdbcType=DATE}, #{dishid,jdbcType=INTEGER}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.example.entity.Comment">
@@ -191,7 +191,7 @@
         #{score,jdbcType=REAL},
       </if>
       <if test="ctime != null">
-        #{ctime,jdbcType=TIMESTAMP},
+        #{ctime,jdbcType=DATE},
       </if>
       <if test="dishid != null">
         #{dishid,jdbcType=INTEGER},
@@ -231,7 +231,7 @@
         Score = #{record.score,jdbcType=REAL},
       </if>
       <if test="record.ctime != null">
-        Ctime = #{record.ctime,jdbcType=TIMESTAMP},
+        Ctime = #{record.ctime,jdbcType=DATE},
       </if>
       <if test="record.dishid != null">
         DishID = #{record.dishid,jdbcType=INTEGER},
@@ -252,7 +252,7 @@
       Pic = #{record.pic,jdbcType=VARCHAR},
       UID = #{record.uid,jdbcType=VARCHAR},
       Score = #{record.score,jdbcType=REAL},
-      Ctime = #{record.ctime,jdbcType=TIMESTAMP},
+      Ctime = #{record.ctime,jdbcType=DATE},
       DishID = #{record.dishid,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -278,7 +278,7 @@
         Score = #{score,jdbcType=REAL},
       </if>
       <if test="ctime != null">
-        Ctime = #{ctime,jdbcType=TIMESTAMP},
+        Ctime = #{ctime,jdbcType=DATE},
       </if>
       <if test="dishid != null">
         DishID = #{dishid,jdbcType=INTEGER},
@@ -296,7 +296,7 @@
       Pic = #{pic,jdbcType=VARCHAR},
       UID = #{uid,jdbcType=VARCHAR},
       Score = #{score,jdbcType=REAL},
-      Ctime = #{ctime,jdbcType=TIMESTAMP},
+      Ctime = #{ctime,jdbcType=DATE},
       DishID = #{dishid,jdbcType=INTEGER}
     where ID = #{id,jdbcType=INTEGER}
   </update>
