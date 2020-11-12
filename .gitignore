@@ -31,4 +31,4 @@ build/
 
 ### VS Code ###
 .vscode/
-/C:/idea/javacode/workteam/src/main/resources/generatorConfig.xml
+/**/src/main/resources/generatorConfig.xml

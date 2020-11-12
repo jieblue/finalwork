@@ -49,10 +49,13 @@
         <table schema="" tableName="user" />
         <table tableName="dish" schema=""/>
         <table tableName="restaurant" schema=""/>
-        <table tableName="comment" schema=""/>
+        <table tableName="comment" schema="">
+            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+        </table>
         <table tableName="collection" schema=""/>
         <table tableName="vcollection" schema=""/>
         <table tableName="vcomment" schema=""/>
+        <table tableName="vcount" schema=""/>
     </context>
 </generatorConfiguration>
 

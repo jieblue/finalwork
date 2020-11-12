@@ -1,15 +1,14 @@
 package com.example.comtroller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.example.entity.*;
 import com.example.mapper.UserMapper;
 import com.example.mapper.VcollectionMapper;
 import com.example.mapper.VcommentMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.jws.soap.SOAPBinding;
 import java.util.List;
 
 @RestController
@@ -20,6 +19,8 @@ public class UserController {
     VcollectionMapper vcollectionMapper;
     @Autowired
     VcommentMapper vcommentMapper;
+//    @Autowired
+//    UserMapper userMapper;
     @RequestMapping(value = "/findall",method = RequestMethod.GET)
     public List<User> getall()
     {
@@ -60,4 +61,26 @@ public class UserController {
         List<Vcomment> vcomments=vcommentMapper.selectByExample(example);
         return vcomments;
     }
+    //返回用户的等级
+    @RequestMapping(value = "/user/level",method = RequestMethod.POST)
+    public int getlevel(@RequestParam("uid") String uid)
+    {
+        User user=userMapper.selectByPrimaryKey(uid);
+        return user.getLevel();
+    }
+    //插入用户
+    @RequestMapping(value = "/user/insertuser",method = RequestMethod.POST)
+    public String insertuser(@RequestBody JSONObject jsonObject)
+    {
+        String id=jsonObject.getString("id");
+      //  Integer level=jsonObject.getInteger("level");
+        String name=jsonObject.getString("name");
+        User user=new User();
+        user.setId(id);
+        user.setLevel(3);
+        user.setName(name);
+        userMapper.insert(user);
+        return "true";
+    }
+
 }
