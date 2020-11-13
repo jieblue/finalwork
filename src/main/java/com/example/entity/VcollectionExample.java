@@ -773,6 +773,216 @@ public class VcollectionExample {
             addCriterion("restaurantlocation not between", value1, value2, "restaurantlocation");
             return (Criteria) this;
         }
+
+        public Criteria andFavorIsNull() {
+            addCriterion("favor is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andFavorIsNotNull() {
+            addCriterion("favor is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andFavorEqualTo(String value) {
+            addCriterion("favor =", value, "favor");
+            return (Criteria) this;
+        }
+
+        public Criteria andFavorNotEqualTo(String value) {
+            addCriterion("favor <>", value, "favor");
+            return (Criteria) this;
+        }
+
+        public Criteria andFavorGreaterThan(String value) {
+            addCriterion("favor >", value, "favor");
+            return (Criteria) this;
+        }
+
+        public Criteria andFavorGreaterThanOrEqualTo(String value) {
+            addCriterion("favor >=", value, "favor");
+            return (Criteria) this;
+        }
+
+        public Criteria andFavorLessThan(String value) {
+            addCriterion("favor <", value, "favor");
+            return (Criteria) this;
+        }
+
+        public Criteria andFavorLessThanOrEqualTo(String value) {
+            addCriterion("favor <=", value, "favor");
+            return (Criteria) this;
+        }
+
+        public Criteria andFavorLike(String value) {
+            addCriterion("favor like", value, "favor");
+            return (Criteria) this;
+        }
+
+        public Criteria andFavorNotLike(String value) {
+            addCriterion("favor not like", value, "favor");
+            return (Criteria) this;
+        }
+
+        public Criteria andFavorIn(List<String> values) {
+            addCriterion("favor in", values, "favor");
+            return (Criteria) this;
+        }
+
+        public Criteria andFavorNotIn(List<String> values) {
+            addCriterion("favor not in", values, "favor");
+            return (Criteria) this;
+        }
+
+        public Criteria andFavorBetween(String value1, String value2) {
+            addCriterion("favor between", value1, value2, "favor");
+            return (Criteria) this;
+        }
+
+        public Criteria andFavorNotBetween(String value1, String value2) {
+            addCriterion("favor not between", value1, value2, "favor");
+            return (Criteria) this;
+        }
+
+        public Criteria andCategoryIsNull() {
+            addCriterion("category is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCategoryIsNotNull() {
+            addCriterion("category is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCategoryEqualTo(String value) {
+            addCriterion("category =", value, "category");
+            return (Criteria) this;
+        }
+
+        public Criteria andCategoryNotEqualTo(String value) {
+            addCriterion("category <>", value, "category");
+            return (Criteria) this;
+        }
+
+        public Criteria andCategoryGreaterThan(String value) {
+            addCriterion("category >", value, "category");
+            return (Criteria) this;
+        }
+
+        public Criteria andCategoryGreaterThanOrEqualTo(String value) {
+            addCriterion("category >=", value, "category");
+            return (Criteria) this;
+        }
+
+        public Criteria andCategoryLessThan(String value) {
+            addCriterion("category <", value, "category");
+            return (Criteria) this;
+        }
+
+        public Criteria andCategoryLessThanOrEqualTo(String value) {
+            addCriterion("category <=", value, "category");
+            return (Criteria) this;
+        }
+
+        public Criteria andCategoryLike(String value) {
+            addCriterion("category like", value, "category");
+            return (Criteria) this;
+        }
+
+        public Criteria andCategoryNotLike(String value) {
+            addCriterion("category not like", value, "category");
+            return (Criteria) this;
+        }
+
+        public Criteria andCategoryIn(List<String> values) {
+            addCriterion("category in", values, "category");
+            return (Criteria) this;
+        }
+
+        public Criteria andCategoryNotIn(List<String> values) {
+            addCriterion("category not in", values, "category");
+            return (Criteria) this;
+        }
+
+        public Criteria andCategoryBetween(String value1, String value2) {
+            addCriterion("category between", value1, value2, "category");
+            return (Criteria) this;
+        }
+
+        public Criteria andCategoryNotBetween(String value1, String value2) {
+            addCriterion("category not between", value1, value2, "category");
+            return (Criteria) this;
+        }
+
+        public Criteria andPicurlIsNull() {
+            addCriterion("picurl is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPicurlIsNotNull() {
+            addCriterion("picurl is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPicurlEqualTo(String value) {
+            addCriterion("picurl =", value, "picurl");
+            return (Criteria) this;
+        }
+
+        public Criteria andPicurlNotEqualTo(String value) {
+            addCriterion("picurl <>", value, "picurl");
+            return (Criteria) this;
+        }
+
+        public Criteria andPicurlGreaterThan(String value) {
+            addCriterion("picurl >", value, "picurl");
+            return (Criteria) this;
+        }
+
+        public Criteria andPicurlGreaterThanOrEqualTo(String value) {
+            addCriterion("picurl >=", value, "picurl");
+            return (Criteria) this;
+        }
+
+        public Criteria andPicurlLessThan(String value) {
+            addCriterion("picurl <", value, "picurl");
+            return (Criteria) this;
+        }
+
+        public Criteria andPicurlLessThanOrEqualTo(String value) {
+            addCriterion("picurl <=", value, "picurl");
+            return (Criteria) this;
+        }
+
+        public Criteria andPicurlLike(String value) {
+            addCriterion("picurl like", value, "picurl");
+            return (Criteria) this;
+        }
+
+        public Criteria andPicurlNotLike(String value) {
+            addCriterion("picurl not like", value, "picurl");
+            return (Criteria) this;
+        }
+
+        public Criteria andPicurlIn(List<String> values) {
+            addCriterion("picurl in", values, "picurl");
+            return (Criteria) this;
+        }
+
+        public Criteria andPicurlNotIn(List<String> values) {
+            addCriterion("picurl not in", values, "picurl");
+            return (Criteria) this;
+        }
+
+        public Criteria andPicurlBetween(String value1, String value2) {
+            addCriterion("picurl between", value1, value2, "picurl");
+            return (Criteria) this;
+        }
+
+        public Criteria andPicurlNotBetween(String value1, String value2) {
+            addCriterion("picurl not between", value1, value2, "picurl");
+            return (Criteria) this;
+        }
     }
 
     /**

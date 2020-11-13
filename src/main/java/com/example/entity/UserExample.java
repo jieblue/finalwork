@@ -264,66 +264,6 @@ public class UserExample {
             return (Criteria) this;
         }
 
-        public Criteria andLevelIsNull() {
-            addCriterion("Level is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andLevelIsNotNull() {
-            addCriterion("Level is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andLevelEqualTo(Integer value) {
-            addCriterion("Level =", value, "level");
-            return (Criteria) this;
-        }
-
-        public Criteria andLevelNotEqualTo(Integer value) {
-            addCriterion("Level <>", value, "level");
-            return (Criteria) this;
-        }
-
-        public Criteria andLevelGreaterThan(Integer value) {
-            addCriterion("Level >", value, "level");
-            return (Criteria) this;
-        }
-
-        public Criteria andLevelGreaterThanOrEqualTo(Integer value) {
-            addCriterion("Level >=", value, "level");
-            return (Criteria) this;
-        }
-
-        public Criteria andLevelLessThan(Integer value) {
-            addCriterion("Level <", value, "level");
-            return (Criteria) this;
-        }
-
-        public Criteria andLevelLessThanOrEqualTo(Integer value) {
-            addCriterion("Level <=", value, "level");
-            return (Criteria) this;
-        }
-
-        public Criteria andLevelIn(List<Integer> values) {
-            addCriterion("Level in", values, "level");
-            return (Criteria) this;
-        }
-
-        public Criteria andLevelNotIn(List<Integer> values) {
-            addCriterion("Level not in", values, "level");
-            return (Criteria) this;
-        }
-
-        public Criteria andLevelBetween(Integer value1, Integer value2) {
-            addCriterion("Level between", value1, value2, "level");
-            return (Criteria) this;
-        }
-
-        public Criteria andLevelNotBetween(Integer value1, Integer value2) {
-            addCriterion("Level not between", value1, value2, "level");
-            return (Criteria) this;
-        }
-
         public Criteria andNameIsNull() {
             addCriterion("name is null");
             return (Criteria) this;
@@ -391,6 +331,66 @@ public class UserExample {
 
         public Criteria andNameNotBetween(String value1, String value2) {
             addCriterion("name not between", value1, value2, "name");
+            return (Criteria) this;
+        }
+
+        public Criteria andIntegralIsNull() {
+            addCriterion("integral is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIntegralIsNotNull() {
+            addCriterion("integral is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIntegralEqualTo(Integer value) {
+            addCriterion("integral =", value, "integral");
+            return (Criteria) this;
+        }
+
+        public Criteria andIntegralNotEqualTo(Integer value) {
+            addCriterion("integral <>", value, "integral");
+            return (Criteria) this;
+        }
+
+        public Criteria andIntegralGreaterThan(Integer value) {
+            addCriterion("integral >", value, "integral");
+            return (Criteria) this;
+        }
+
+        public Criteria andIntegralGreaterThanOrEqualTo(Integer value) {
+            addCriterion("integral >=", value, "integral");
+            return (Criteria) this;
+        }
+
+        public Criteria andIntegralLessThan(Integer value) {
+            addCriterion("integral <", value, "integral");
+            return (Criteria) this;
+        }
+
+        public Criteria andIntegralLessThanOrEqualTo(Integer value) {
+            addCriterion("integral <=", value, "integral");
+            return (Criteria) this;
+        }
+
+        public Criteria andIntegralIn(List<Integer> values) {
+            addCriterion("integral in", values, "integral");
+            return (Criteria) this;
+        }
+
+        public Criteria andIntegralNotIn(List<Integer> values) {
+            addCriterion("integral not in", values, "integral");
+            return (Criteria) this;
+        }
+
+        public Criteria andIntegralBetween(Integer value1, Integer value2) {
+            addCriterion("integral between", value1, value2, "integral");
+            return (Criteria) this;
+        }
+
+        public Criteria andIntegralNotBetween(Integer value1, Integer value2) {
+            addCriterion("integral not between", value1, value2, "integral");
             return (Criteria) this;
         }
     }

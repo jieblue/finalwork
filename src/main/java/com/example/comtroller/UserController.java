@@ -44,11 +44,11 @@ public class UserController {
         return vcomments;
     }
     //返回用户的等级
-    @RequestMapping(value = "/user/level",method = RequestMethod.POST)
+    @RequestMapping(value = "/user/integral",method = RequestMethod.POST)
     public int getlevel(@RequestParam("uid") String uid)
     {
         User user=userMapper.selectByPrimaryKey(uid);
-        return user.getLevel();
+        return user.getIntegral();
     }
     //插入用户
     @RequestMapping(value = "/user/insertuser",method = RequestMethod.POST)
@@ -59,7 +59,6 @@ public class UserController {
         String name=jsonObject.getString("name");
         User user=new User();
         user.setId(id);
-        user.setLevel(3);
         user.setName(name);
         userMapper.insert(user);
         return "true";

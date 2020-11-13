@@ -31,9 +31,11 @@ public class CommentController {
     @Autowired
     DishMapper dishMapper;
     //判断是否可以插入评论S
-    @RequestMapping(value = "/user/cancomment",method = RequestMethod.POST)
-    public String cando(@RequestParam("uid") String uid,@RequestParam("did") int did)
+    @RequestMapping(value = "/comment/cancomment",method = RequestMethod.POST)
+    public String cando(@RequestBody JSONObject jsonObject)
     {
+        String uid=jsonObject.getString("uid");
+        Integer did=jsonObject.getInteger("dishid");
         VcountExample example=new VcountExample();
         Date date=new Date();
         VcountExample.Criteria criteria=example.createCriteria();
@@ -41,12 +43,12 @@ public class CommentController {
         criteria.andTimeEqualTo(date);
         List<Vcount> vcounts= vcountMapper.selectByExample(example);
         User user=userMapper.selectByPrimaryKey(uid);
-        if (user.getLevel()==0)
-            return "false";
+        if (user.getIntegral()<25)
+            return "";
         if (!vcounts.isEmpty())
         {
             Vcount vcount=vcounts.get(0);
-            if (vcount.getCount()>=user.getLevel())
+            if (vcount.getCount()>=user.getIntegral()/25+1)
                 return "false";
         }
         CommentExample example1=new CommentExample();
@@ -58,7 +60,7 @@ public class CommentController {
        return "true";
     }
     //插入评论
-    @RequestMapping(value = "/user/docomment",method = RequestMethod.POST)
+    @RequestMapping(value = "/comment/docomment",method = RequestMethod.POST)
     public String docomment(CInfo cInfo ) throws Exception {
 
         MultipartFile file=cInfo.getFile();
@@ -89,7 +91,31 @@ public class CommentController {
         dish.setScore(newscore);
         dish.setCommentnumber(newnum);
         dishMapper.updateByPrimaryKey(dish);
+        User user=userMapper.selectByPrimaryKey(uid);
+        if (user.getIntegral()<=10000) {
+            user.setIntegral(user.getIntegral() + 2);
+            userMapper.updateByPrimaryKey(user);
+        }
         return "true";
     }
-
+    //删除评论
+    @RequestMapping(value ="/comment/deletecomment",method = RequestMethod.POST)
+    public String deletecomment(@RequestBody JSONObject jsonObject)
+    {
+        Dish dish=dishMapper.selectByPrimaryKey(jsonObject.getInteger("dishid"));
+        String uid=jsonObject.getString("uid");
+        User user=userMapper.selectByPrimaryKey(uid);
+        user.setIntegral(user.getIntegral()-2);
+        userMapper.updateByPrimaryKey(user);
+        float dscore=jsonObject.getFloat("score");
+        Integer oldnum=dish.getCommentnumber();
+        float oldscore=dish.getScore();
+        Integer newnum=oldnum-1;
+        float newscore=(oldscore*oldnum-dscore)/newnum;
+        dish.setScore(newscore);
+        dish.setCommentnumber(newnum);
+        dishMapper.updateByPrimaryKey(dish);
+        commentMapper.deleteByPrimaryKey(jsonObject.getInteger("id"));
+        return "true";
+    }
 }
