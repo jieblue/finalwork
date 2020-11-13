@@ -48,7 +48,7 @@ public class CommentController {
                 return "false";
         }
         CommentExample example1=new CommentExample();
-        CommentExample.Criteria criteria1=example1.createCriteria();
+        CommentExample.Criteria criteria1=example1.createCriteria();//判断是否评论过同一个菜品
         criteria1.andUidEqualTo(uid).andDishidEqualTo(did);
         List<Comment> comments=commentMapper.selectByExample(example1);
         if (!comments.isEmpty())
@@ -78,8 +78,8 @@ public class CommentController {
         comment.setText(text);
         comment.setUid(uid);
         comment.setScore(score);
-
-       commentMapper.insert(comment);
+        commentMapper.insert(comment);
+        
         return comment;
     }
 
