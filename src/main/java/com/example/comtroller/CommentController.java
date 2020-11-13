@@ -43,20 +43,22 @@ public class CommentController {
         criteria.andTimeEqualTo(date);
         List<Vcount> vcounts= vcountMapper.selectByExample(example);
         User user=userMapper.selectByPrimaryKey(uid);
-        if (user.getIntegral()<25)
-            return "";
-        if (!vcounts.isEmpty())
-        {
-            Vcount vcount=vcounts.get(0);
-            if (vcount.getCount()>=user.getIntegral()/25+1)
-                return "false";
-        }
+        if (user.getIntegral()<0)
+            return "error1";//被拉黑
         CommentExample example1=new CommentExample();
         CommentExample.Criteria criteria1=example1.createCriteria();//判断是否评论过同一个菜品
         criteria1.andUidEqualTo(uid).andDishidEqualTo(did);
         List<Comment> comments=commentMapper.selectByExample(example1);
         if (!comments.isEmpty())
-            return "false";
+            return "error3";//禁止评论同一个菜品
+        if (!vcounts.isEmpty())
+        {
+         //   Integer tmp=
+            Vcount vcount=vcounts.get(0);
+            if (vcount.getCount()>=user.getIntegral()/25+1)
+                return "error2";//等级限制
+        }
+
        return "true";
     }
     //插入评论
@@ -73,7 +75,7 @@ public class CommentController {
 //        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
 //        System.out.println(formatter.format(date1).toString());
         String picname=uid+"and"+did.toString();
-        String url= FileSave.savefile(file,picname);
+        String url= FileSave.savefile(file,picname,0);
 
         Comment comment=new Comment();
         comment.setCtime(date1);

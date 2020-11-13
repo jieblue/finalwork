@@ -63,5 +63,27 @@ public class UserController {
         userMapper.insert(user);
         return "true";
     }
+    @RequestMapping(value = "/user/getusers",method = RequestMethod.GET)
+    public List<User> getusers()
+    {
+        UserExample example=new UserExample();
+        UserExample.Criteria criteria=example.createCriteria();
+        List<User> users=userMapper.selectByExample(example);
+        return users;
+    }
+    @RequestMapping(value = "/user/setintegral")
+    public String setintegral(@RequestBody JSONObject jsonObject)
+    {
+        String id=jsonObject.getString("id");
+        Integer integral=jsonObject.getInteger("integral");
+        if (integral>10000)
+            integral=10000;
+        else if (integral<-10000)
+            integral=-10000;
+        User user=userMapper.selectByPrimaryKey(id);
+        user.setIntegral(integral);
 
+        userMapper.updateByPrimaryKey(user);
+        return "true";
+    }
 }
