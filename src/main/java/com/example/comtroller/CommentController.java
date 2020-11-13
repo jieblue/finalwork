@@ -28,6 +28,8 @@ public class CommentController {
     VcommentMapper vcommentMapper;
     @Autowired
     VcountMapper vcountMapper;
+    @Autowired
+    DishMapper dishMapper;
     //判断是否可以插入评论S
     @RequestMapping(value = "/user/cancomment",method = RequestMethod.POST)
     public String cando(@RequestParam("uid") String uid,@RequestParam("did") int did)
@@ -57,7 +59,7 @@ public class CommentController {
     }
     //插入评论
     @RequestMapping(value = "/user/docomment",method = RequestMethod.POST)
-    public Comment docomment(CInfo cInfo ) throws Exception {
+    public String docomment(CInfo cInfo ) throws Exception {
 
         MultipartFile file=cInfo.getFile();
         String uid=cInfo.getUid();
@@ -79,8 +81,15 @@ public class CommentController {
         comment.setUid(uid);
         comment.setScore(score);
         commentMapper.insert(comment);
-        
-        return comment;
+        Dish dish=dishMapper.selectByPrimaryKey(did);
+        float oldscore=dish.getScore();
+        Integer oldnum=dish.getCommentnumber();
+        float newscore=(oldscore*oldnum+score)/(oldnum+1);
+        Integer newnum=oldnum+1;
+        dish.setScore(newscore);
+        dish.setCommentnumber(newnum);
+        dishMapper.updateByPrimaryKey(dish);
+        return "true";
     }
 
 }

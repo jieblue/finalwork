@@ -21,17 +21,8 @@ public class UserController {
     VcommentMapper vcommentMapper;
 //    @Autowired
 //    UserMapper userMapper;
-    @RequestMapping(value = "/findall",method = RequestMethod.GET)
-    public List<User> getall()
-    {
-        UserExample userExample=new UserExample();
-        UserExample.Criteria criteria1 = userExample.createCriteria();
-        List<User> R=userMapper.selectByExample(userExample);
-
-        return R;
-    }
     //返回用户收藏的菜品信息
-    @RequestMapping(value = "/getcollection",method = RequestMethod.POST)
+    @RequestMapping(value = "/user/getcollection",method = RequestMethod.POST)
     public List<Vcollection> getcollection(@RequestParam("uid") String uid)
     {
         VcollectionExample example=new VcollectionExample();
@@ -41,16 +32,7 @@ public class UserController {
         return vcollections;
     }
 
-    //返回菜品评论信息
-    @RequestMapping(value = "/dish/getcomment",method = RequestMethod.POST)
-    public List<Vcomment> getdishcomment(@RequestParam("did") Integer did)
-    {
-        VcommentExample example=new VcommentExample();
-        VcommentExample.Criteria criteria=example.createCriteria();
-        criteria.andDishidEqualTo(did);
-        List<Vcomment> vcomments=vcommentMapper.selectByExample(example);
-        return vcomments;
-    }
+
     //返回用户所有评论信息
     @RequestMapping(value = "/user/getcomment",method = RequestMethod.POST)
     public List<Vcomment> getusercomment(@RequestParam("uid") String uid)
