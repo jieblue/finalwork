@@ -1,6 +1,7 @@
 package com.example.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.example.Service.ActionService;
 import com.example.entity.*;
 import com.example.mapper.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,8 @@ import java.util.List;
 @RestController
 public class UserController {
     @Autowired
+    ActionService actionService;
+    @Autowired
     UserMapper userMapper;
     @Autowired
     VcollectionMapper vcollectionMapper;
@@ -18,6 +21,8 @@ public class UserController {
     VcommentMapper vcommentMapper;
     @Autowired
     ActionMapper actionMapper;
+    @Autowired
+    DishMapper dishMapper;
     @Autowired
     CollectionMapper collectionMapper;
 //    @Autowired
@@ -98,6 +103,7 @@ public class UserController {
     {
         String uid=jsonObject.getString("uid");
         Integer did=jsonObject.getInteger("dishid");
+        actionService.updateTypes(did,uid,3);
 //        CollectionExample example=new CollectionExample();
 //        CollectionExample.Criteria criteria=example.createCriteria();
 //        criteria.andDishidEqualTo(did)
@@ -115,6 +121,10 @@ public class UserController {
     @RequestMapping(value = "/user/deletecollection",method = RequestMethod.POST)
     public String deletecollection(@RequestParam("id") Integer id)
     {
+        Collection collection=collectionMapper.selectByPrimaryKey(id);
+        Integer did=collection.getDishid();
+        String uid =collection.getUid();
+        actionService.updateTypes(did,uid,-5);
         collectionMapper.deleteByPrimaryKey(id);
         return "true";
     }

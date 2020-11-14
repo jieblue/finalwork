@@ -3,7 +3,7 @@ package com.example.fileutil;
 import net.coobird.thumbnailator.Thumbnails;
 import org.springframework.util.ResourceUtils;
 import org.springframework.web.multipart.MultipartFile;
-import sun.security.x509.OtherName;
+
 
 import java.io.File;
 import java.io.IOException;

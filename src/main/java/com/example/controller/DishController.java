@@ -2,6 +2,7 @@ package com.example.controller;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.example.Service.ActionService;
 import com.example.entity.*;
 import com.example.fileutil.FileSave;
 import com.example.fileutil.GetMax;
@@ -10,11 +11,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
 @RestController
 public class DishController {
+    @Autowired
+    ActionService actionService;
     @Autowired
     UserMapper userMapper;
     @Autowired
@@ -40,41 +44,7 @@ public class DishController {
     public Dish getdishinfo(@RequestBody JSONObject jsonObject) {
         Integer did=jsonObject.getInteger("dishid");
         String uid=jsonObject.getString("uid");
-        String favor=jsonObject.getString("favor");
-        String[] types=favor.split(",");
-        Action action=actionMapper.selectByPrimaryKey(uid);
-        for (String tmp:types)
-        {
-            if (tmp.equals("酸"))
-            {
-                action.setType1(action.getType1()+1);
-            }
-            else if (tmp.equals("甜"))
-            {
-                action.setType2(action.getType2()+1);
-            }
-            else if (tmp.equals("苦"))
-            {
-                action.setType3(action.getType3()+1);
-            }
-            else if (tmp.equals("辣"))
-            {
-                action.setType4(action.getType4()+1);
-            }
-            else if (tmp.equals("咸"))
-            {
-                action.setType5(action.getType5()+1);
-            }
-            else if (tmp.equals("清淡"))
-            {
-                action.setType6(action.getType6()+1);
-            }
-            else if(tmp.equals("重口味"))
-            {
-                action.setType7(action.getType7()+1);
-            }
-        }
-        actionMapper.updateByPrimaryKey(action);
+        actionService.updateTypes(did,uid,1);
         Dish dish = dishMapper.selectByPrimaryKey(did);
         return dish;
     }
@@ -195,38 +165,48 @@ public class DishController {
         String s2=types.get(2);
         DishExample example=new DishExample();
         DishExample.Criteria criteria=example.createCriteria();
-        example.setPageSize(10);
-        example.setStartRow(page*10);
+        example.setPageSize(30);
+        example.setStartRow(page*30);
         example.setOrderByClause("score desc");
         criteria.andFavorLike("%"+s0+"%");
         example.setDistinct(true);
         List<Dish> dishes=dishMapper.selectByExample(example);
+        Collections.shuffle(dishes);
+
+        dishes.subList(0,dishes.size()/2);
         ////////////////
         DishExample example1=new DishExample();
         DishExample.Criteria criteria1=example1.createCriteria();
-        example1.setPageSize(4);
+        example1.setPageSize(12);
         example1.setOrderByClause("score desc");
-        example1.setStartRow(page*4);
-        criteria1.andFavorLike("%"+s1+"%");
+        example1.setStartRow(page*12);
+        criteria1.andFavorLike("%"+s1+"%")
+                .andFavorNotLike("%"+s0+"%");
 
         example1.setDistinct(true);
         List<Dish> dishes1=dishMapper.selectByExample(example1);
+        Collections.shuffle(dishes1);
+
+        dishes1.subList(0,dishes1.size()/2);
         /////////////////////////////////
         DishExample example2=new DishExample();
         DishExample.Criteria criteria2=example2.createCriteria();
-        example2.setPageSize(4);
-        example2.setStartRow(page*4);
+        example2.setPageSize(8);
+        example2.setStartRow(page*8);
         example2.setOrderByClause("score desc");
         criteria2.andFavorLike("%"+s2+"%")
                 .andFavorNotLike("%"+s0+"%")
                 .andFavorNotLike("%"+s1+"%");
         example2.setDistinct(true);
         List<Dish> dishes2=dishMapper.selectByExample(example2);
+        Collections.shuffle(dishes2);
+
+        dishes2.subList(0,dishes2.size()/2);
         ///////////////////////////////////
         DishExample example3=new DishExample();
         DishExample.Criteria criteria3=example3.createCriteria();
-        example3.setPageSize(10);
-        example3.setStartRow(page*10);
+        example3.setPageSize(6);
+        example3.setStartRow(page*6);
         example3.setOrderByClause("score desc");
 
         criteria3.andFavorNotLike("%"+s1+"%");
@@ -234,11 +214,16 @@ public class DishController {
         criteria3.andFavorNotLike("%"+s2+"%");
         //example3.setDistinct(true);
         List<Dish> dishes3=dishMapper.selectByExample(example3);
+        Collections.shuffle(dishes3);
 
+        dishes3.subList(0,dishes3.size()/2);
 
         dishes.addAll(dishes1);
         dishes.addAll(dishes2);
         dishes.addAll(dishes3);
+        Collections.shuffle(dishes);
+
+
         return dishes;
 
     }
