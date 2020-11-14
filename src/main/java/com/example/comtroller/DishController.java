@@ -1,5 +1,6 @@
 package com.example.comtroller;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.example.entity.*;
 import com.example.fileutil.FileSave;
@@ -10,6 +11,7 @@ import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -164,9 +166,10 @@ public class DishController {
     @RequestMapping(value = "/dish/getdishes",method = RequestMethod.POST)
     public List<Dish> getdishes(@RequestParam("page") int page)
     {
+        int size=20;
         DishExample example=new DishExample();
-        example.setStartRow(page);
-        example.setPageSize(5);
+        example.setStartRow(page*size);
+        example.setPageSize(size);
         DishExample.Criteria criteria=example.createCriteria();
         example.setOrderByClause("score desc");
         List<Dish> dishes=dishMapper.selectByExample(example);
@@ -195,7 +198,7 @@ public class DishController {
         DishExample example=new DishExample();
         DishExample.Criteria criteria=example.createCriteria();
         example.setPageSize(10);
-        example.setStartRow(page);
+        example.setStartRow(page*10);
         example.setOrderByClause("score desc");
         criteria.andFavorLike("%"+s0+"%");
         example.setDistinct(true);
@@ -205,7 +208,7 @@ public class DishController {
         DishExample.Criteria criteria1=example1.createCriteria();
         example1.setPageSize(4);
         example1.setOrderByClause("score desc");
-        example1.setStartRow(page);
+        example1.setStartRow(page*4);
         criteria1.andFavorLike("%"+s1+"%");
 
         example1.setDistinct(true);
@@ -214,7 +217,7 @@ public class DishController {
         DishExample example2=new DishExample();
         DishExample.Criteria criteria2=example2.createCriteria();
         example2.setPageSize(4);
-        example2.setStartRow(page);
+        example2.setStartRow(page*4);
         example2.setOrderByClause("score desc");
         criteria2.andFavorLike("%"+s2+"%")
                 .andFavorNotLike("%"+s0+"%")
@@ -225,7 +228,7 @@ public class DishController {
         DishExample example3=new DishExample();
         DishExample.Criteria criteria3=example3.createCriteria();
         example3.setPageSize(10);
-        example3.setStartRow(page);
+        example3.setStartRow(page*10);
         example3.setOrderByClause("score desc");
 
         criteria3.andFavorNotLike("%"+s1+"%");
@@ -240,5 +243,55 @@ public class DishController {
         dishes.addAll(dishes3);
         return dishes;
 
+    }
+    //////口味返回菜品
+    @RequestMapping(value = "/dish/favor",method = RequestMethod.POST)
+    public List<Dish> getfavordish(@RequestBody JSONObject jsonObject)
+    {
+        int page=jsonObject.getInteger("page");
+        JSONArray jsonArray=jsonObject.getJSONArray("favor");
+        List<String > types=new ArrayList<>();
+        int len=jsonArray.size();
+        for (int i=0;i<len;i++)
+        {
+            String tmp=jsonArray.getString(i);
+            types.add(tmp);
+        }
+        DishExample example=new DishExample();
+        DishExample.Criteria criteria=example.createCriteria();
+        for (String type:types)
+        {
+            DishExample.Criteria criteria1=example.createCriteria();
+            criteria1.andFavorLike("%"+type+"%");
+            example.or(criteria1);
+        }
+        example.setPageSize(20);
+        example.setStartRow(page*20);
+        example.setDistinct(true);
+        example.setOrderByClause("score desc");
+        List<Dish> dishes=dishMapper.selectByExample(example);
+        return dishes;
+    }
+    ////搜索api 每次返回20个
+    @RequestMapping(value = "/dish/search",method = RequestMethod.POST)
+    public List<Dish> getsearch(@RequestBody JSONObject jsonObject)
+    {
+        String word=jsonObject.getString("word");
+        int page=jsonObject.getInteger("page");
+        DishExample example=new DishExample();
+        DishExample.Criteria criteria=example.createCriteria();
+        criteria.andNameLike("%"+word+"%");
+     //   example.or(criteria);
+        DishExample.Criteria criteria1=example.createCriteria();
+        criteria1.andRestaurantnameLike("%"+word+"%");
+        example.or(criteria1);
+
+
+        example.setDistinct(true);
+        example.setPageSize(20);
+        example.setStartRow(page*20);
+        example.setOrderByClause("score desc");
+        List<Dish> dishes=dishMapper.selectByExample(example);
+        return dishes;
     }
 }
