@@ -2,6 +2,7 @@ package com.example.comtroller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.example.entity.*;
+import com.example.mapper.ActionMapper;
 import com.example.mapper.UserMapper;
 import com.example.mapper.VcollectionMapper;
 import com.example.mapper.VcommentMapper;
@@ -19,6 +20,8 @@ public class UserController {
     VcollectionMapper vcollectionMapper;
     @Autowired
     VcommentMapper vcommentMapper;
+    @Autowired
+    ActionMapper actionMapper;
 //    @Autowired
 //    UserMapper userMapper;
     //返回用户收藏的菜品信息
@@ -61,6 +64,9 @@ public class UserController {
         user.setId(id);
         user.setName(name);
         userMapper.insert(user);
+        Action action=new Action();
+        action.setId(id);
+        actionMapper.insert(action);
         return "true";
     }
     @RequestMapping(value = "/user/getusers",method = RequestMethod.GET)
