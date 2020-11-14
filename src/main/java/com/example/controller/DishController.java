@@ -1,4 +1,4 @@
-package com.example.comtroller;
+package com.example.controller;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -6,8 +6,6 @@ import com.example.entity.*;
 import com.example.fileutil.FileSave;
 import com.example.fileutil.GetMax;
 import com.example.mapper.*;
-import javafx.scene.chart.ValueAxis;
-import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.text.SimpleDateFormat;

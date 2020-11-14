@@ -1,18 +1,13 @@
-package com.example.comtroller;
+package com.example.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.example.entity.*;
 import com.example.fileutil.FileSave;
 import com.example.mapper.*;
-import org.apache.ibatis.annotations.Options;
-import org.omg.CORBA.PUBLIC_MEMBER;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.print.DocFlavor;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -72,10 +67,13 @@ public class CommentController {
         float score=cInfo.getScore();
         //@RequestParam("picture")MultipartFile picture
         Date date1=new Date();
-//        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-//        System.out.println(formatter.format(date1).toString());
+
         String picname=uid+"and"+did.toString();
-        String url= FileSave.savefile(file,picname,0);
+        String url="";
+        if(file!=null)
+        {
+            url= FileSave.savefile(file,picname,0);
+        }
 
         Comment comment=new Comment();
         comment.setCtime(date1);

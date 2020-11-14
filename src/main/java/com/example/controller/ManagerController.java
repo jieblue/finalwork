@@ -1,4 +1,4 @@
-package com.example.comtroller;
+package com.example.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.example.entity.Manager;

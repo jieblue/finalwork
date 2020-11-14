@@ -1,15 +1,11 @@
-package com.example.comtroller;
+package com.example.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.example.entity.*;
-import com.example.mapper.ActionMapper;
-import com.example.mapper.UserMapper;
-import com.example.mapper.VcollectionMapper;
-import com.example.mapper.VcommentMapper;
+import com.example.mapper.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.jws.soap.SOAPBinding;
 import java.util.List;
 
 @RestController
@@ -22,6 +18,8 @@ public class UserController {
     VcommentMapper vcommentMapper;
     @Autowired
     ActionMapper actionMapper;
+    @Autowired
+    CollectionMapper collectionMapper;
 //    @Autowired
 //    UserMapper userMapper;
     //返回用户收藏的菜品信息
@@ -69,6 +67,7 @@ public class UserController {
         actionMapper.insert(action);
         return "true";
     }
+    //返回所有用户信息
     @RequestMapping(value = "/user/getusers",method = RequestMethod.GET)
     public List<User> getusers()
     {
@@ -77,12 +76,13 @@ public class UserController {
         List<User> users=userMapper.selectByExample(example);
         return users;
     }
+    //更改用户的积分
     @RequestMapping(value = "/user/setintegral")
     public String setintegral(@RequestBody JSONObject jsonObject)
     {
         String id=jsonObject.getString("id");
         Integer integral=jsonObject.getInteger("integral");
-        if (integral>10000)
+        if (integral>10000)//zuida 10000
             integral=10000;
         else if (integral<-10000)
             integral=-10000;
@@ -91,5 +91,48 @@ public class UserController {
 
         userMapper.updateByPrimaryKey(user);
         return "true";
+    }
+    //添加收藏
+    @RequestMapping(value = "/user/addcollection",method = RequestMethod.POST)
+    public String addcollection(@RequestBody JSONObject jsonObject)
+    {
+        String uid=jsonObject.getString("uid");
+        Integer did=jsonObject.getInteger("dishid");
+//        CollectionExample example=new CollectionExample();
+//        CollectionExample.Criteria criteria=example.createCriteria();
+//        criteria.andDishidEqualTo(did)
+//                .andUidEqualTo(uid);
+//        List<Collection> collections = collectionMapper.selectByExample(example);
+//        if (!collections.isEmpty())
+//            return "false";
+        Collection collection=new Collection();
+        collection.setDishid(did);
+        collection.setUid(uid);
+        collectionMapper.insert(collection);
+        return "true";
+    }
+    //取消收藏
+    @RequestMapping(value = "/user/deletecollection",method = RequestMethod.POST)
+    public String deletecollection(@RequestParam("id") Integer id)
+    {
+        collectionMapper.deleteByPrimaryKey(id);
+        return "true";
+    }
+    //返回是否收藏
+    @RequestMapping(value = "/user/iscollected",method = RequestMethod.POST)
+    public boolean iscollection(@RequestBody JSONObject jsonObject)
+    {
+
+        Integer did=jsonObject.getInteger("dishid");
+        String uid=jsonObject.getString("uid");
+        System.out.println(uid+" "+did);
+        CollectionExample example=new CollectionExample();
+        CollectionExample.Criteria criteria=example.createCriteria();
+        criteria.andDishidEqualTo(did)
+                .andUidEqualTo(uid);
+        List<Collection> collections = collectionMapper.selectByExample(example);
+        if (collections.isEmpty())
+            return false;
+        return true;
     }
 }
