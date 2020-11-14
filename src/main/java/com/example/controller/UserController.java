@@ -2,6 +2,7 @@ package com.example.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.example.Service.ActionService;
+import com.example.Service.CollectionService;
 import com.example.entity.*;
 import com.example.mapper.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,8 @@ import java.util.List;
 
 @RestController
 public class UserController {
+    @Autowired
+    CollectionService collectionService;
     @Autowired
     ActionService actionService;
     @Autowired
@@ -56,22 +59,6 @@ public class UserController {
         User user=userMapper.selectByPrimaryKey(uid);
         return user.getIntegral();
     }
-    //插入用户
-    @RequestMapping(value = "/user/insertuser",method = RequestMethod.POST)
-    public String insertuser(@RequestBody JSONObject jsonObject)
-    {
-        String id=jsonObject.getString("id");
-      //  Integer level=jsonObject.getInteger("level");
-        String name=jsonObject.getString("name");
-        User user=new User();
-        user.setId(id);
-        user.setName(name);
-        userMapper.insert(user);
-        Action action=new Action();
-        action.setId(id);
-        actionMapper.insert(action);
-        return "true";
-    }
     //返回所有用户信息
     @RequestMapping(value = "/user/getusers",method = RequestMethod.GET)
     public List<User> getusers()
@@ -104,13 +91,8 @@ public class UserController {
         String uid=jsonObject.getString("uid");
         Integer did=jsonObject.getInteger("dishid");
         actionService.updateTypes(did,uid,3);
-//        CollectionExample example=new CollectionExample();
-//        CollectionExample.Criteria criteria=example.createCriteria();
-//        criteria.andDishidEqualTo(did)
-//                .andUidEqualTo(uid);
-//        List<Collection> collections = collectionMapper.selectByExample(example);
-//        if (!collections.isEmpty())
-//            return "false";
+        if (collectionService.isCollected(uid,did))
+            return "false";
         Collection collection=new Collection();
         collection.setDishid(did);
         collection.setUid(uid);
@@ -135,14 +117,8 @@ public class UserController {
 
         Integer did=jsonObject.getInteger("dishid");
         String uid=jsonObject.getString("uid");
-        System.out.println(uid+" "+did);
-        CollectionExample example=new CollectionExample();
-        CollectionExample.Criteria criteria=example.createCriteria();
-        criteria.andDishidEqualTo(did)
-                .andUidEqualTo(uid);
-        List<Collection> collections = collectionMapper.selectByExample(example);
-        if (collections.isEmpty())
-            return false;
-        return true;
+        if (collectionService.isCollected(uid,did))
+            return true;
+        return false;
     }
 }
