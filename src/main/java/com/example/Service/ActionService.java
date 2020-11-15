@@ -19,6 +19,8 @@ public class ActionService {
         Action action=actionMapper.selectByPrimaryKey(uid);
         Dish dish =dishMapper.selectByPrimaryKey(did);
         String favor=dish.getFavor();
+        if (dish.getFavor()==null)
+            return;
         String[] types=favor.split(",");
         for (String tmp:types)
         {

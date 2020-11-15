@@ -3,6 +3,7 @@ package com.example.controller;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.example.Service.ActionService;
+import com.example.Service.NameService;
 import com.example.entity.*;
 import com.example.fileutil.FileSave;
 import com.example.fileutil.GetMax;
@@ -17,6 +18,8 @@ import java.util.List;
 
 @RestController
 public class DishController {
+    @Autowired
+    NameService nameService;
     @Autowired
     ActionService actionService;
     @Autowired
@@ -65,15 +68,7 @@ public class DishController {
         List<Dish> dishes = dishMapper.selectByExample(example);
         if (!dishes.isEmpty())
             return "exist";
-        Date date = new Date();
-        String strDateFormat = "yyyy-MM-ddHH:mm:ss";
-        SimpleDateFormat sdf = new SimpleDateFormat(strDateFormat);
-        String origin=sdf.format(date);
-        String[] tmp=origin.split("-|:");
-        String fname ="";
-        for (String i:tmp)
-            fname=fname+i;
-
+        String fname=nameService.getname();
         String url = FileSave.savefile(dInfo.getFile(), fname, 1);
         Dish dish = new Dish();
         dish.setCategory(dInfo.getCategory());

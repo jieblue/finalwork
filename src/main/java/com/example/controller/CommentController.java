@@ -1,6 +1,7 @@
 package com.example.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.example.Service.NameService;
 import com.example.entity.*;
 import com.example.fileutil.FileSave;
 import com.example.mapper.*;
@@ -13,6 +14,8 @@ import java.util.List;
 
 @RestController
 public class CommentController {
+    @Autowired
+    NameService nameService;
     @Autowired
     CommentMapper commentMapper;
     @Autowired
@@ -68,7 +71,7 @@ public class CommentController {
         //@RequestParam("picture")MultipartFile picture
         Date date1=new Date();
 
-        String picname=uid+"and"+did.toString();
+        String picname=nameService.getname()+uid+did.toString();
         String url="";
         if(file!=null)
         {
