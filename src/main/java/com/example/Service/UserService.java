@@ -15,12 +15,21 @@ public class UserService {
     ActionMapper actionMapper;
     public void insertUser(String uid,String name)
     {
-        User user=new User();
-        user.setName(name);
-        user.setId(uid);
-        Action action=new Action();
-        action.setId(uid);
-        userMapper.insert(user);
-        actionMapper.insert(action);
+        User user=userMapper.selectByPrimaryKey(uid);
+        User user1=new User();
+        user1.setId(uid);
+        user1.setName(name);
+        if (user==null)
+        {
+            userMapper.insert(user1);
+            Action action=new Action();
+            action.setId(uid);
+            actionMapper.insert(action);
+        }
+        else
+        {
+            userMapper.updateByPrimaryKey(user);
+        }
+
     }
 }
