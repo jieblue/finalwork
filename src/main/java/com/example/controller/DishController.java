@@ -147,7 +147,7 @@ public class DishController {
         List<Dish> dishes=dishMapper.selectByExample(example);
         return dishes;
     }
-    //每次返回10-28条推荐菜品
+    //每次返回10-28条推荐菜品/dish/recommend
     @RequestMapping(value = "/dish/recommend",method = RequestMethod.POST)
     public List<Dish> getrecommend(@RequestBody JSONObject jsonObject)
     {
@@ -203,10 +203,12 @@ public class DishController {
         example3.setPageSize(6);
         example3.setStartRow(page*6);
         example3.setOrderByClause("score desc");
-
         criteria3.andFavorNotLike("%"+s1+"%");
         criteria3.andFavorNotLike("%"+s0+"%");
         criteria3.andFavorNotLike("%"+s2+"%");
+        DishExample.Criteria criteria4=example3.createCriteria();
+        criteria4.andFavorIsNull();
+        example3.or(criteria4);
         //example3.setDistinct(true);
         List<Dish> dishes3=dishMapper.selectByExample(example3);
         Collections.shuffle(dishes3);
