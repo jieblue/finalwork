@@ -18,17 +18,28 @@ public class UserService {
         User user=userMapper.selectByPrimaryKey(uid);
         User user1=new User();
         user1.setId(uid);
+
         user1.setName(name);
         if (user==null)
         {
+            user1.setIntegral(25);
+
             userMapper.insert(user1);
             Action action=new Action();
             action.setId(uid);
+            action.setType1(0);
+            action.setType2(0);
+            action.setType3(0);
+            action.setType4(0);
+            action.setType5(0);
+            action.setType6(0);
+            action.setType7(0);
             actionMapper.insert(action);
         }
         else
         {
-            userMapper.updateByPrimaryKey(user);
+            user1.setIntegral(user.getIntegral());
+            userMapper.updateByPrimaryKey(user1);
         }
 
     }
