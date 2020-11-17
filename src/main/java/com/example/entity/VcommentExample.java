@@ -741,6 +741,76 @@ public class VcommentExample {
             addCriterion("userid not between", value1, value2, "userid");
             return (Criteria) this;
         }
+
+        public Criteria andSmallpicIsNull() {
+            addCriterion("smallpic is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSmallpicIsNotNull() {
+            addCriterion("smallpic is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSmallpicEqualTo(String value) {
+            addCriterion("smallpic =", value, "smallpic");
+            return (Criteria) this;
+        }
+
+        public Criteria andSmallpicNotEqualTo(String value) {
+            addCriterion("smallpic <>", value, "smallpic");
+            return (Criteria) this;
+        }
+
+        public Criteria andSmallpicGreaterThan(String value) {
+            addCriterion("smallpic >", value, "smallpic");
+            return (Criteria) this;
+        }
+
+        public Criteria andSmallpicGreaterThanOrEqualTo(String value) {
+            addCriterion("smallpic >=", value, "smallpic");
+            return (Criteria) this;
+        }
+
+        public Criteria andSmallpicLessThan(String value) {
+            addCriterion("smallpic <", value, "smallpic");
+            return (Criteria) this;
+        }
+
+        public Criteria andSmallpicLessThanOrEqualTo(String value) {
+            addCriterion("smallpic <=", value, "smallpic");
+            return (Criteria) this;
+        }
+
+        public Criteria andSmallpicLike(String value) {
+            addCriterion("smallpic like", value, "smallpic");
+            return (Criteria) this;
+        }
+
+        public Criteria andSmallpicNotLike(String value) {
+            addCriterion("smallpic not like", value, "smallpic");
+            return (Criteria) this;
+        }
+
+        public Criteria andSmallpicIn(List<String> values) {
+            addCriterion("smallpic in", values, "smallpic");
+            return (Criteria) this;
+        }
+
+        public Criteria andSmallpicNotIn(List<String> values) {
+            addCriterion("smallpic not in", values, "smallpic");
+            return (Criteria) this;
+        }
+
+        public Criteria andSmallpicBetween(String value1, String value2) {
+            addCriterion("smallpic between", value1, value2, "smallpic");
+            return (Criteria) this;
+        }
+
+        public Criteria andSmallpicNotBetween(String value1, String value2) {
+            addCriterion("smallpic not between", value1, value2, "smallpic");
+            return (Criteria) this;
+        }
     }
 
     /**

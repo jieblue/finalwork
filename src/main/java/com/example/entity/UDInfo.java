@@ -8,6 +8,15 @@ public class UDInfo implements Serializable {
     private  Integer id;
     private MultipartFile file;
     private String url;
+    private String smallurl;
+
+    public String getSmallurl() {
+        return smallurl;
+    }
+
+    public void setSmallurl(String smallurl) {
+        this.smallurl = smallurl;
+    }
 
     public Integer getId() {
         return id;

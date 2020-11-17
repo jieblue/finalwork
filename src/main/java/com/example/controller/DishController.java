@@ -70,6 +70,7 @@ public class DishController {
             return "exist";
         String fname=nameService.getname();
         String url = FileSave.savefile(dInfo.getFile(), fname, 1);
+        String smallurl = FileSave.savesmallfile(dInfo.getFile(),fname,1);
         Dish dish = new Dish();
         dish.setCategory(dInfo.getCategory());
         dish.setRestaurantlocation(dInfo.getRlocation());
@@ -78,6 +79,7 @@ public class DishController {
         dish.setName(dInfo.getName());
         dish.setPrice(dInfo.getPrice());
         dish.setPicurl(url);
+        dish.setSmallpic(smallurl);
         dishMapper.insert(dish);
         return "true";
     }
@@ -114,8 +116,11 @@ public class DishController {
     public String updatedishpic(UDInfo udInfo)throws Exception
     {
         String old=udInfo.getUrl();
+        String smallold=udInfo.getSmallurl();
         String name=old.substring(old.lastIndexOf("/")+1,old.lastIndexOf("."));
+        String smallname=smallold.substring(smallold.lastIndexOf("/")+1,smallold.lastIndexOf("."));
         FileSave.savefile(udInfo.getFile(),name,1);
+        FileSave.savesmallfile(udInfo.getFile(),smallname,1);
         return "true";
     }
     //删除菜品

@@ -73,9 +73,12 @@ public class CommentController {
 
         String picname=nameService.getname()+uid+did.toString();
         String url="";
+        String smallurl="";
         if(file!=null)
         {
-            url= FileSave.savefile(file,picname,0);
+            url= FileSave.savecommentfile(file,picname);
+
+           // smallurl=FileSave.savesmallfile(file,picname,0);
         }
 
         Comment comment=new Comment();
@@ -85,6 +88,7 @@ public class CommentController {
         comment.setText(text);
         comment.setUid(uid);
         comment.setScore(score);
+        comment.setSmallpic(smallurl);
         commentMapper.insert(comment);
         Dish dish=dishMapper.selectByPrimaryKey(did);
         float oldscore=dish.getScore();

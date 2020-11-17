@@ -33,4 +33,5 @@ build/
 .vscode/
 /**/src/main/resources/generatorConfig.xml
 /**/src/main/resources/www.jieblue.xyz.jks
-/**/src/test/java/com/example/controller/DemoApplicationTests.java
+/**/src/test/java/com/example/controller/Encryptor.java
+/**/static/
