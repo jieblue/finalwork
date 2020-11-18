@@ -10,6 +10,27 @@ public class DishExample {
      *
      * @mbg.generated
      */
+    protected int startRow;
+
+    protected int pageSize;
+
+
+    public int getStartRow() {
+        return startRow;
+    }
+
+    public void setStartRow(int startRow) {
+        this.startRow = startRow;
+    }
+
+    public int getPageSize() {
+        return pageSize;
+    }
+
+    public void setPageSize(int pageSize) {
+        this.pageSize = pageSize;
+    }
+
     protected String orderByClause;
 
     /**
@@ -44,27 +65,6 @@ public class DishExample {
      *
      * @mbg.generated
      */
-    protected int startRow;
-
-    protected int pageSize;
-
-
-    public int getStartRow() {
-        return startRow;
-    }
-
-    public void setStartRow(int startRow) {
-        this.startRow = startRow;
-    }
-
-    public int getPageSize() {
-        return pageSize;
-    }
-
-    public void setPageSize(int pageSize) {
-        this.pageSize = pageSize;
-    }
-
     public void setOrderByClause(String orderByClause) {
         this.orderByClause = orderByClause;
     }

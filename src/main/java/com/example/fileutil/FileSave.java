@@ -77,4 +77,15 @@ public class FileSave {
         file.transferTo(savefile);
         return "https://www.jieblue.xyz:8080/static/comment/"+name;
     }
+    public static String saveuserfile(MultipartFile file,String name) throws Exception
+    {
+        String staticpath=ResourceUtils.getURL("static").getPath();
+        name=name+".jpeg";
+        String savepath=staticpath+"\\user\\"+name;
+        File savefile=new File(savepath);
+        if (!savefile.exists())
+            savefile.mkdirs();
+        file.transferTo(savefile);
+        return "https://www.jieblue.xyz:8080/static/user/"+name;
+    }
 }

@@ -13,12 +13,12 @@ public class UserService {
     UserMapper userMapper;
     @Autowired
     ActionMapper actionMapper;
-    public void insertUser(String uid,String name)
+    public void insertUser(String uid,String name,String url)
     {
         User user=userMapper.selectByPrimaryKey(uid);
         User user1=new User();
         user1.setId(uid);
-
+        user1.setUrl(url);
         user1.setName(name);
         if (user==null)
         {
