@@ -2,10 +2,12 @@ package com.example.Service;
 
 import com.example.entity.Action;
 import com.example.entity.User;
+import com.example.fileutil.FileSave;
 import com.example.mapper.ActionMapper;
 import com.example.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class UserService {
@@ -13,17 +15,22 @@ public class UserService {
     UserMapper userMapper;
     @Autowired
     ActionMapper actionMapper;
-    public void insertUser(String uid,String name,String url)
+    @Autowired
+    NameService nameService;
+    public void insertUser(String uid, String name, MultipartFile file) throws Exception
     {
         User user=userMapper.selectByPrimaryKey(uid);
         User user1=new User();
         user1.setId(uid);
-        user1.setUrl(url);
+
+
         user1.setName(name);
         if (user==null)
         {
+            String fname=nameService.getname();
             user1.setIntegral(25);
-
+            String url= FileSave.saveuserfile(file,fname);
+            user1.setUrl(url);
             userMapper.insert(user1);
             Action action=new Action();
             action.setId(uid);
@@ -38,6 +45,10 @@ public class UserService {
         }
         else
         {
+            String oldname=user.getUrl();
+            String fname=oldname.substring(oldname.lastIndexOf("/")+1,oldname.lastIndexOf("."));
+            String url= FileSave.saveuserfile(file,fname);
+            user1.setUrl(url);
             user1.setIntegral(user.getIntegral());
             userMapper.updateByPrimaryKey(user1);
         }

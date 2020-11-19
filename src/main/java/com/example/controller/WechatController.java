@@ -35,14 +35,14 @@ public class WechatController {
         MultipartFile file=uInfo.getFile();
         String str;
 
-        String fname=nameService.getname();
-        String headurl= FileSave.saveuserfile(file,fname);
+    //    String fname=nameService.getname();
+  //      String headurl= FileSave.saveuserfile(file,fname);
         String url = "https://api.weixin.qq.com/sns/jscode2session?appid="+appid+"&secret="+secret+"&js_code="+code+"&grant_type=authorization_code";
              // 发送请求，返回Json字符串
         str = HttpUtil.doGet(url);
         JSONObject jsonObject=JSONObject.parseObject(str);
         String openid=jsonObject.getString("openid");
-        userService.insertUser(openid,nickname,headurl);
+        userService.insertUser(openid,nickname,file);
 //
 
 
