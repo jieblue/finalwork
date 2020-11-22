@@ -29,10 +29,10 @@ public class WechatController {
     @Autowired
     NameService nameService;
     @RequestMapping(value = "/getOpenid",method = RequestMethod.POST)
-    public String getOpenId(UInfo uInfo) throws Exception {
-        String code=uInfo.getCode();
-        String nickname=uInfo.getNickname();
-        MultipartFile file=uInfo.getFile();
+    public String getOpenId(@RequestBody JSONObject jsonObject) throws Exception {
+        String code=jsonObject.getString("code");
+        String nickname=jsonObject.getString("nickname");
+        String aurl=jsonObject.getString("url");
         String str;
 
     //    String fname=nameService.getname();
@@ -40,9 +40,9 @@ public class WechatController {
         String url = "https://api.weixin.qq.com/sns/jscode2session?appid="+appid+"&secret="+secret+"&js_code="+code+"&grant_type=authorization_code";
              // 发送请求，返回Json字符串
         str = HttpUtil.doGet(url);
-        JSONObject jsonObject=JSONObject.parseObject(str);
-        String openid=jsonObject.getString("openid");
-        userService.insertUser(openid,nickname,file);
+        JSONObject jsonObject1=JSONObject.parseObject(str);
+        String openid=jsonObject1.getString("openid");
+        userService.insertUser(openid,nickname,aurl);
 //
 
 

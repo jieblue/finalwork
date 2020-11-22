@@ -5,7 +5,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class UInfo {
     private String code;
     private String nickname;
-    private MultipartFile file;
+    private String url;
 
     public String getCode() {
         return code;
@@ -23,12 +23,12 @@ public class UInfo {
         this.nickname = nickname;
     }
 
-    public MultipartFile getFile() {
-        return file;
+    public String getUrl() {
+        return url;
     }
 
-    public void setFile(MultipartFile file) {
-        this.file = file;
+    public void setUrl(String url) {
+        this.url = url;
     }
 
     @Override
@@ -36,7 +36,7 @@ public class UInfo {
         return "UInfo{" +
                 "code='" + code + '\'' +
                 ", nickname='" + nickname + '\'' +
-                ", file=" + file +
+                ", url='" + url + '\'' +
                 '}';
     }
 }

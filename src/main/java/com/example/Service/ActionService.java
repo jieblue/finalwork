@@ -24,6 +24,7 @@ public class ActionService {
         String[] types=favor.split(",");
         for (String tmp:types)
         {
+            //System.out.println(tmp);
             if (tmp.equals("酸"))
             {
                 action.setType1(action.getType1()+delta);
@@ -51,7 +52,9 @@ public class ActionService {
             else if(tmp.equals("重口味"))
             {
                 action.setType7(action.getType7()+delta);
+              //  System.out.println(action.getType7());
             }
         }
+        actionMapper.updateByPrimaryKey(action);
     }
 }

@@ -39,6 +39,7 @@ public class DishController {
         VcommentExample.Criteria criteria = example.createCriteria();
         criteria.andDishidEqualTo(did);
         List<Vcomment> vcomments = vcommentMapper.selectByExample(example);
+
         return vcomments;
     }
 
@@ -49,12 +50,14 @@ public class DishController {
         String uid=jsonObject.getString("uid");
         actionService.updateTypes(did,uid,1);
         Dish dish = dishMapper.selectByPrimaryKey(did);
+        dish.setCommentnumber(dish.getCommentnumber()-1);
         return dish;
     }
     //返回菜品详情 管理员端
     @RequestMapping(value = "/dish/getinfomation", method = RequestMethod.POST)
     public Dish getdishinfomation(@RequestParam("id") Integer id) {
         Dish dish = dishMapper.selectByPrimaryKey(id);
+        dish.setCommentnumber(dish.getCommentnumber()-1);
         return dish;
     }
     //插入菜品

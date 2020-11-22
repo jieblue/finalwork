@@ -17,7 +17,7 @@ public class UserService {
     ActionMapper actionMapper;
     @Autowired
     NameService nameService;
-    public void insertUser(String uid, String name, MultipartFile file) throws Exception
+    public void insertUser(String uid, String name, String url) throws Exception
     {
         User user=userMapper.selectByPrimaryKey(uid);
         User user1=new User();
@@ -27,9 +27,7 @@ public class UserService {
         user1.setName(name);
         if (user==null)
         {
-            String fname=nameService.getname();
             user1.setIntegral(25);
-            String url= FileSave.saveuserfile(file,fname);
             user1.setUrl(url);
             userMapper.insert(user1);
             Action action=new Action();
@@ -46,9 +44,7 @@ public class UserService {
         else
         {
             String oldname=user.getUrl();
-            String fname=oldname.substring(oldname.lastIndexOf("/")+1,oldname.lastIndexOf("."));
-            String url= FileSave.saveuserfile(file,fname);
-            user1.setUrl(url);
+            user1.setUrl(oldname);
             user1.setIntegral(user.getIntegral());
             userMapper.updateByPrimaryKey(user1);
         }
