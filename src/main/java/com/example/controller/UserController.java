@@ -86,18 +86,18 @@ public class UserController {
     }
     //添加收藏
     @RequestMapping(value = "/user/addcollection",method = RequestMethod.POST)
-    public String addcollection(@RequestBody JSONObject jsonObject)
+    public Integer addcollection(@RequestBody JSONObject jsonObject)
     {
         String uid=jsonObject.getString("uid");
         Integer did=jsonObject.getInteger("dishid");
         actionService.updateTypes(did,uid,3);
         if (collectionService.isCollected(uid,did))
-            return "false";
+            return -1;
         Collection collection=new Collection();
         collection.setDishid(did);
         collection.setUid(uid);
         collectionMapper.insert(collection);
-        return "true";
+        return collection.getId();
     }
     //取消收藏
     @RequestMapping(value = "/user/deletecollection",method = RequestMethod.POST)
