@@ -1,10 +1,9 @@
-package com.example.Service;
+package com.example.service;
 
 import org.springframework.stereotype.Service;
 import java.util.UUID;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Random;
 
 @Service
 public class NameService {

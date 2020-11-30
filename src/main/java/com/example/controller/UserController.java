@@ -1,8 +1,8 @@
 package com.example.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import com.example.Service.ActionService;
-import com.example.Service.CollectionService;
+import com.example.service.ActionService;
+import com.example.service.CollectionService;
 import com.example.entity.*;
 import com.example.mapper.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -91,8 +91,6 @@ public class UserController {
         String uid=jsonObject.getString("uid");
         Integer did=jsonObject.getInteger("dishid");
         actionService.updateTypes(did,uid,3);
-        if (collectionService.isCollected(uid,did))
-            return -1;
         Collection collection=new Collection();
         collection.setDishid(did);
         collection.setUid(uid);
@@ -112,13 +110,11 @@ public class UserController {
     }
     //返回是否收藏
     @RequestMapping(value = "/user/iscollected",method = RequestMethod.POST)
-    public boolean iscollection(@RequestBody JSONObject jsonObject)
+    public int iscollection(@RequestBody JSONObject jsonObject)
     {
 
         Integer did=jsonObject.getInteger("dishid");
         String uid=jsonObject.getString("uid");
-        if (collectionService.isCollected(uid,did))
-            return true;
-        return false;
+        return collectionService.isCollected(uid,did);
     }
 }

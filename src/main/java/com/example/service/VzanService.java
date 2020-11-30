@@ -1,7 +1,6 @@
-package com.example.Service;
+package com.example.service;
 
 import com.example.entity.Vzan;
-import com.example.entity.Zan;
 
 import java.util.List;
 

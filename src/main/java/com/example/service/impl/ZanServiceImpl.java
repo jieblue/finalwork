@@ -1,6 +1,6 @@
-package com.example.Service.impl;
+package com.example.service.impl;
 
-import com.example.Service.ZanService;
+import com.example.service.ZanService;
 import com.example.entity.Zan;
 import com.example.entity.ZanExample;
 import com.example.mapper.ZanMapper;

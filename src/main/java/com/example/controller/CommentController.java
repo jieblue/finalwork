@@ -1,7 +1,7 @@
 package com.example.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import com.example.Service.NameService;
+import com.example.service.NameService;
 import com.example.entity.*;
 import com.example.fileutil.FileSave;
 import com.example.mapper.*;

@@ -2,18 +2,18 @@ package com.example.controller;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.example.Service.ActionService;
-import com.example.Service.NameService;
+import com.example.service.ActionService;
+import com.example.service.NameService;
 import com.example.entity.*;
 import com.example.fileutil.FileSave;
 import com.example.fileutil.GetMax;
 import com.example.mapper.*;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import java.text.SimpleDateFormat;
+
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -91,26 +91,57 @@ public class DishController {
     @RequestMapping(value = "/dish/updatedish", method = RequestMethod.POST)
     public String updatedish(@RequestBody JSONObject jsonObject) throws Exception {
         Integer id = jsonObject.getInteger("id");
-        String name = jsonObject.getString("name");
-        String favor = jsonObject.getString("favor");
-        String category = jsonObject.getString("category");
-        String rname = jsonObject.getString("rname");
-        String rlocation = jsonObject.getString("rlocation");
-        float price = jsonObject.getFloat("price");
-        float score = jsonObject.getFloat("score");
-        Integer num = jsonObject.getInteger("num");
-        String url = jsonObject.getString("url");
-        Dish dish = new Dish();
-        dish.setPicurl(url);
-        dish.setCommentnumber(num);
-        dish.setScore(score);
-        dish.setPrice(price);
-        dish.setRestaurantlocation(rlocation);
-        dish.setRestaurantname(rname);
-        dish.setCategory(category);
-        dish.setFavor(favor);
-        dish.setName(name);
-        dish.setId(id);
+
+
+
+        Dish dish = dishMapper.selectByPrimaryKey(id);
+        if (jsonObject.containsKey("url"))
+        {
+            String url = jsonObject.getString("url");
+            dish.setPicurl(url);
+        }
+       // if (num != null)
+        if (jsonObject.containsKey("num"))
+        {
+            Integer num = jsonObject.getInteger("num");
+            dish.setCommentnumber(num);
+        }
+        if (jsonObject.containsKey("score"))
+        {
+            float score = jsonObject.getFloat("score");
+            dish.setScore(score);
+        }
+        if (jsonObject.containsKey("price"))
+        {
+            float price = jsonObject.getFloat("price");
+            dish.setPrice(price);
+        }
+        if (jsonObject.containsKey("rlocation"))
+        {
+            String rlocation = jsonObject.getString("rlocation");
+            dish.setRestaurantlocation(rlocation);
+        }
+        if (jsonObject.containsKey("rname"))
+        {
+            String rname = jsonObject.getString("rname");
+            dish.setRestaurantname(rname);
+        }
+        if (jsonObject.containsKey("category"))
+        {
+            String category = jsonObject.getString("category");
+            dish.setCategory(category);
+        }
+        if (jsonObject.containsKey("favor"))
+        {
+            String favor = jsonObject.getString("favor");
+            dish.setFavor(favor);
+        }
+        if (jsonObject.containsKey("name"))
+        {
+            String name = jsonObject.getString("name");
+            dish.setName(name);
+        }
+
         dishMapper.updateByPrimaryKey(dish);
         return "true";
     }

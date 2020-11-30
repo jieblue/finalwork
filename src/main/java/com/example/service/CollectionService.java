@@ -1,4 +1,4 @@
-package com.example.Service;
+package com.example.service;
 
 import com.example.entity.Collection;
 import com.example.entity.CollectionExample;
@@ -13,7 +13,7 @@ public class CollectionService {
     @Autowired
     private CollectionMapper collectionMapper;
 
-    public boolean isCollected(String uid,Integer did)
+    public int isCollected(String uid,Integer did)
     {
         CollectionExample example=new CollectionExample();
         CollectionExample.Criteria criteria=example.createCriteria();
@@ -21,7 +21,7 @@ public class CollectionService {
                 .andUidEqualTo(uid);
         List<Collection> collections = collectionMapper.selectByExample(example);
         if (!collections.isEmpty())
-            return true;
-        return false;
+            return collections.get(0).getId();
+        return -1;
     }
 }

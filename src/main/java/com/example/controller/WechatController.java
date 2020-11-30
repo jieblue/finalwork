@@ -1,21 +1,15 @@
 package com.example.controller;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.example.Service.NameService;
-import com.example.Service.UserService;
-import com.example.entity.UInfo;
-import com.example.fileutil.FileSave;
+import com.example.service.NameService;
+import com.example.service.UserService;
 import com.example.fileutil.HttpUtil;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import com.example.Util.*;
-import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 public class WechatController {
@@ -43,10 +37,6 @@ public class WechatController {
         JSONObject jsonObject1=JSONObject.parseObject(str);
         String openid=jsonObject1.getString("openid");
         userService.insertUser(openid,nickname,aurl);
-//
-
-
-
         return openid;
 
     }

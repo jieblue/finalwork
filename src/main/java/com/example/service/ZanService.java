@@ -1,4 +1,4 @@
-package com.example.Service;
+package com.example.service;
 
 public interface ZanService {
     Integer dozan(String uid,Integer did,int type);

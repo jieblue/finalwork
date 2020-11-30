@@ -1,8 +1,7 @@
-package com.example.Service.impl;
+package com.example.service.impl;
 
 import com.example.entity.Vzan;
 import com.example.entity.VzanExample;
-import com.example.entity.Zan;
 import com.example.mapper.VzanMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,7 +9,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service("VzanService")
-public class VzanServiceImpl implements com.example.Service.VzanService {
+public class VzanServiceImpl implements com.example.service.VzanService {
     @Autowired
     VzanMapper vzanMapper;
     @Override
